@@ -5,7 +5,7 @@ import numpy
 import pygame
 
 # Setting the seed for random from OS time
-random.seed()
+#random.seed()
 
 # Set display size 
 gameDisplay=pygame.display.set_mode((800, 800))
@@ -21,17 +21,14 @@ yellow = (255,255,0)
 # Creating list for the entire thing
 fullList = []
 neighborList = []
-Neighbor = [] 
-
-global i
-
+Neighbor = []
 # Defining loop
 for i in range(64):
      
      # Individual list for each block's neighbor list
      neighborList.append([i])
      # Creating the value for the "Neighbor" at each position
-     listNow = [i, numpy.random.random_integers(1,6)]
+     listNow = [i, random.randint(1,6)]
 
      if listNow[1] == 1 or listNow[1] == 2:
           listNow[1] = green
@@ -55,6 +52,7 @@ def exitCheck():
     # Checking to see if exit was pressed
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
+
 
 
 # Defining the drawing definition
@@ -111,67 +109,72 @@ whatLoopAmINow = -1
 #print(neighborList)
 # Logic Def 
 def logic():
-    time.sleep(.01)
-    global whatLoopAmINow
-    print(whatLoopAmINow)
-
     
+    for i in range(64):
+         global whatLoopAmINow
+         print(whatLoopAmINow)
          
-    # Counting variable for number of neighbors 
-    neighbor = 0
-    whatLoopAmINow = whatLoopAmINow + 1
-    # Looking forward one
-    if i != 7 and i != 15 and i != 23 and i != 31 and i != 39 and i != 47 and i != 55 and i != 63:
-       if fullList[i][1] == fullList[i + 1][1]:
-           neighbor = neighbor + 1 
-       if i > 8: 
-            if fullList[i][1] == fullList [i - 7][1]:
-                 neighbor = neighbor + 1    
-       if i < 55:
-            if fullList[i][1] == fullList [i + 9][1]:
+         # Counting variable for number of neighbors 
+         neighbor = 0
+         whatLoopAmINow = whatLoopAmINow + 1
+         # Looking forward one
+         if i != 7 and i != 15 and i != 23 and i != 31 and i != 39 and i != 47 and i != 55 and i != 63:
+             if fullList[i][1] == fullList[i + 1][1]:
                  neighbor = neighbor + 1 
+             if i > 8: 
+                 if fullList[i][1] == fullList [i - 7][1]:
+                      neighbor = neighbor + 1    
+             if i < 55:
+                 if fullList[i][1] == fullList [i + 9][1]:
+                      neighbor = neighbor + 1 
 
-    # Looking back one
-    if i != 0 and i != 8 and i != 16 and i != 24 and i != 32 and i != 40 and i != 48 and i != 56:
-        if fullList[i][1] == fullList [i - 1][1]:
-            neighbor = neighbor + 1
-        if i > 8: 
-            if fullList[i][1] == fullList [i - 9][1]:
+         # Looking back one
+         if i != 0 and i != 8 and i != 16 and i != 24 and i != 32 and i != 40 and i != 48 and i != 56:
+             if fullList[i][1] == fullList [i - 1][1]:
                  neighbor = neighbor + 1
-        if i < 55:
-            if fullList[i][1] == fullList [i + 7][1]:
-                 neighbor = neighbor + 1
-    # Looking up 
-    if i > 8:
-        if fullList[i][1] == fullList [i - 8][1]:
-                 neighbor = neighbor + 1
-    # Looking down 
-    if i < 55:
-        if fullList[i][1] == fullList [i + 8][1]:
-                 neighbor = neighbor + 1
-    #Neighbor.append([neighbor])
-    if whatLoopAmINow < 64:
-        neighborList[i].append(neighbor)
-    elif whatLoopAmINow >= 64:
-        del neighborList[i][1]
-           #print(neighborList)
-            #try:
-             #   del neighborList[i][1]
-            #except: 
-                #neighborList[i].append(neighbor)
-            #else:
-        neighborList[i].append(neighbor)
-        print(neighborList)
-        #if k == 1:
-        #    print(neighborList[i][1])   
+             if i > 8: 
+                 if fullList[i][1] == fullList [i - 9][1]:
+                      neighbor = neighbor + 1
+             if i < 55:
+                 if fullList[i][1] == fullList [i + 7][1]:
+                      neighbor = neighbor + 1
+
+         # Looking up 
+         if i > 8:
+             if fullList[i][1] == fullList [i - 8][1]:
+                      neighbor = neighbor + 1
+         # Looking down 
+         if i < 55:
+             if fullList[i][1] == fullList [i + 8][1]:
+                      neighbor = neighbor + 1
+         #Neighbor.append([neighbor])
+         if whatLoopAmINow < 64:
+             neighborList[i].append(neighbor)
+         elif whatLoopAmINow >= 64:
+             del neighborList[i][1]
+             #print(neighborList)
+             try:
+                 del neighborList[i][1]
+             except: 
+                 neighborList[i].append(neighbor)
+             else:
+                 neighborList[i].append(neighbor)
+         #if k == 1:
+         #    print(neighborList[i][1])   
 
             
-        #print(neighbor)
-         #   time.sleep(.01)
-   
-    if not True == True: 
+         #print(neighbor)
+             time.sleep(.01)
+        
+         
+         
+             
+             
+       
+    
+    if True == True: 
         # Picking what "neighbor" is going to move
-        i = numpy.random.random_integers(0,63)
+        i = random.randint(0,64)
         tempCount = 0
         # Getting the neighbor count in a way that we can add too
         tempCount = neighborList[i][1]
@@ -207,6 +210,7 @@ def logic():
                     possibleSpot = False
             neighborList[i][1] = tempCount
          #   print("loop 1")
+
 
         # The first middle row 
         if i > 0 and i < 7:
@@ -343,7 +347,7 @@ def logic():
                 
         # The middle spots 
         if i > 8 and i < 15 or i > 16 and i < 23 or i > 24 and i < 31 or i > 32 and i < 39 or i > 40 and i < 47 or i > 48 and i < 55:
-            
+           
             if fullList[i - 9][1] != cyan and fullList[i - 8][1] != cyan and fullList[i - 7][1] != cyan and fullList[i - 1][1] != cyan and fullList[i + 1][1] != cyan and fullList[i + 7][1] != cyan and fullList[i + 8][1] != cyan and fullList[i + 9][1] or fullList[i][1] == cyan:
                 possibleSpot = False     
    
@@ -451,6 +455,7 @@ def logic():
     
     
     
+
  
 # Making sure Program is responsive 
 #clock = pygame.time.Clock()
@@ -461,7 +466,7 @@ def logic():
  
 # Will equal true when all the neighbors are satisfied 
 sortingDone = False 
-#firstLoop = True
+firstLoop = True
 # the main drawing loop and logic loop
 while sortingDone == False:
     
@@ -483,7 +488,6 @@ while sortingDone == False:
     drawFirst()
     drawLines()
     pygame.display.update()
-    
 
 
     # Check to see if exit button was pressed
@@ -492,6 +496,3 @@ while sortingDone == False:
     # Slow down the refresh rate 
     #time.sleep(50)
 
-
-
-# shellings-model-of-segregation
