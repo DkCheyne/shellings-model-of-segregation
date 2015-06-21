@@ -112,7 +112,7 @@ def logic():
     
     for i in range(64):
          global whatLoopAmINow
-         print(whatLoopAmINow)
+         print(whatLoopAmINow / 64)
          
          # Counting variable for number of neighbors 
          neighbor = 0
@@ -164,7 +164,7 @@ def logic():
 
             
          #print(neighbor)
-             time.sleep(.01)
+             time.sleep(.001)
         
          
          
@@ -174,7 +174,7 @@ def logic():
     
     if True == True: 
         # Picking what "neighbor" is going to move
-        i = random.randint(0,64)
+        i = random.randint(0,63)
         tempCount = 0
         # Getting the neighbor count in a way that we can add too
         tempCount = neighborList[i][1]
@@ -452,9 +452,13 @@ def logic():
             neighborList[i][1] = tempCount
             print(fullList[i][1])
         #    print("loop 8")
-    
-    
-    
+            print(tempCount)
+
+
+
+
+
+
 
  
 # Making sure Program is responsive 
